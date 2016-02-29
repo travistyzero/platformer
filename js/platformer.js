@@ -197,3 +197,7 @@ Set the graphics scale. Defines the number of pixels that a single unit
 takes up on the screen
 */
 var scale = 20;
+
+// Create level and show game.
+var simpleLevel = new Level(simpleLevelPlan);
+var display = new DOMDisplay(document.body, simpleLevel);
