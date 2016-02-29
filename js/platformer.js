@@ -147,6 +147,19 @@ function DOMDisplay(parent, level) {
     });
     return wrap;
   };
+
+  /*
+  Redraws Actors by removing them all from the DOM and drawing them in
+  new positions.
+  */
+  this.drawFrame = function() {
+    if (this.actorLayer) {
+      this.wrap.removeChild(this.actorLayer);
+      this.actorLayer = this.wrap.appendChild(this.drawActors());
+      this.wrap.className = "game " + (this.level.status || "");
+      this.scrollPlayerIntoView();
+    }
+  };
 }
 
 /*
