@@ -120,6 +120,17 @@ function DOMDisplay(parent, level) {
   this.wrap.appendChild(this.drawBackgroud());
   this.actorLayer = null;
   this.drawFrame();
+  this.drawBackground = function() {
+    var table = createElement("table", "background");
+    table.style.width = this.level.width * scale + "px";
+    this.level.grid.forEach(function(row) {
+      var rowElement = table.appendChild(createElement("tr"));
+      rowElement.style.height = scale + "px";
+      row.forEach(function(type) {
+        rowElement.appendChild(createElement("td", type));
+      });
+    });
+  };
 }
 
 /*
