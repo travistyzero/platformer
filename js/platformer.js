@@ -116,8 +116,7 @@ itself and a level object.
 function DOMDisplay(parent, level) {
   this.wrap = parent.appendChild(createElement("div", "game"));
   this.level = level;
-
-  this.wrap.appendChild(this.drawBackgroud());
+  this.wrap.appendChild(this.drawBackground());
   this.actorLayer = null;
   this.drawFrame();
 
