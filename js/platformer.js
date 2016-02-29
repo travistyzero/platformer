@@ -57,3 +57,17 @@ function Level(plan) {
 Level.prototype.isFinished = function() {
   return this.status !== null && this.finishDelay < 0;
 };
+
+// Store position and size of an actor.
+function Vector(x, y) {
+  this.x = x;
+  this.y = y;
+
+  this.plus = function(other) {
+    return new Vector(this.x + other.x, this.y + other.y);
+  };
+
+  this.times = function(factor) {
+    return new Vector(this.x * factor, this.y * factor);
+  };
+}
