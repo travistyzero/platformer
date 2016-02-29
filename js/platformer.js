@@ -131,6 +131,7 @@ DOMDisplay.prototype.drawBackground = function() {
       rowElement.appendChild(createElement("td", type));
     });
   });
+  return table;
 };
 
 // Create DOM element for each actor.
