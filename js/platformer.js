@@ -71,3 +71,10 @@ function Vector(x, y) {
     return new Vector(this.x * factor, this.y * factor);
   };
 }
+
+function Player(position) {
+  this.position = position.plus(new Vector(0, -0.5));
+  this.size = new Vector(0.8, 1.5);
+  this.velocity = new Vector(0, 0);
+  this.type = "player";
+}
