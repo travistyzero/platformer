@@ -99,3 +99,12 @@ function Coin(pos) {
   this.wobble = Math.random() * Math.PI * 2;
   this.type = "coin";
 }
+
+// Create an element for the DOM.
+function createElement(name, className) {
+  var element = document.createElement(name);
+  if (className) {
+    element.className = className;
+  }
+  return element;
+}
