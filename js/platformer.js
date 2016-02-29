@@ -136,17 +136,17 @@ function DOMDisplay(parent, level) {
 
   // Create DOM element for each actor.
   this.drawActors = function() {
-      var wrap = createElement("div");
-  this.level.actors.forEach(function(actor) {
-    var rect = wrap.appendChild(createElement("div",
-                                    "actor " + actor.type));
-    rect.style.width = actor.size.x * scale + "px";
-    rect.style.height = actor.size.y * scale + "px";
-    rect.style.left = actor.pos.x * scale + "px";
-    rect.style.top = actor.pos.y * scale + "px";
-  });
-  return wrap;
-};
+    var wrap = createElement("div");
+    this.level.actors.forEach(function(actor) {
+      var rect = wrap.appendChild(createElement("div",
+        "actor " + actor.type));
+      rect.style.width = actor.size.x * scale + "px";
+      rect.style.height = actor.size.y * scale + "px";
+      rect.style.left = actor.pos.x * scale + "px";
+      rect.style.top = actor.pos.y * scale + "px";
+    });
+    return wrap;
+  };
 }
 
 /*
