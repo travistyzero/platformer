@@ -78,3 +78,17 @@ function Player(position) {
   this.velocity = new Vector(0, 0);
   this.type = "player";
 }
+
+function Lava(pos, ch) {
+  this.pos = pos;
+  this.size = new Vector(1, 1);
+  if (ch == "=") {
+    this.velocity = new Vector(2, 0);
+  } else if (ch == "|") {
+    this.velocity = new Vector(0, 2);
+  } else if (ch == "v") {
+    this.velocity = new Vector(0, 3);
+    this.repeatPos = pos;
+  }
+  this.type = "lava";
+}
