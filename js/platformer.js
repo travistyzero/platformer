@@ -62,15 +62,13 @@ Level.prototype.isFinished = function() {
 function Vector(x, y) {
   this.x = x;
   this.y = y;
-
-  this.plus = function(other) {
-    return new Vector(this.x + other.x, this.y + other.y);
-  };
-
-  this.times = function(factor) {
-    return new Vector(this.x * factor, this.y * factor);
-  };
 }
+Vector.prototype.plus = function(other) {
+    return new Vector(this.x + other.x, this.y + other.y);
+};
+Vecotr.prototype.times = function(factor) {
+    return new Vector(this.x * factor, this.y * factor);
+};
 
 function Player(position) {
   this.position = position.plus(new Vector(0, -0.5));
@@ -120,76 +118,77 @@ function DOMDisplay(parent, level) {
   this.actorLayer = null;
   this.drawFrame();
 
-  // Create table to display the level. Each element has a single table element.
-  this.drawBackground = function() {
-    var table = createElement("table", "background");
-    table.style.width = this.level.width * scale + "px";
-    this.level.grid.forEach(function(row) {
-      var rowElement = table.appendChild(createElement("tr"));
-      rowElement.style.height = scale + "px";
-      row.forEach(function(type) {
-        rowElement.appendChild(createElement("td", type));
-      });
-    });
-  };
-
-  // Create DOM element for each actor.
-  this.drawActors = function() {
-    var wrap = createElement("div");
-    this.level.actors.forEach(function(actor) {
-      var rect = wrap.appendChild(createElement("div",
-        "actor " + actor.type));
-      rect.style.width = actor.size.x * scale + "px";
-      rect.style.height = actor.size.y * scale + "px";
-      rect.style.left = actor.pos.x * scale + "px";
-      rect.style.top = actor.pos.y * scale + "px";
-    });
-    return wrap;
-  };
-
-  /*
-  Redraws Actors by removing them all from the DOM and drawing them in
-  new positions.
-  */
-  this.drawFrame = function() {
-    if (this.actorLayer) {
-      this.wrap.removeChild(this.actorLayer);
-      this.actorLayer = this.wrap.appendChild(this.drawActors());
-      this.wrap.className = "game " + (this.level.status || "");
-      this.scrollPlayerIntoView();
-    }
-  };
-
-  this.scrollPlayerIntoView = function() {
-    var width = this.wrap.clientWidth;
-    var height = this.wrap.clientHeight;
-    var margin = width / 3;
-
-    // The viewport
-    var left = this.wrap.scrollLeft;
-    var right = left + width;
-    var top = this.wrap.scrollTop;
-    var bottom = top + height;
-
-    var player = this.level.player;
-    var center = player.pos.plus(player.size.times(0.5))
-      .times(scale);
-
-    if (center.x < left + margin)
-      this.wrap.scrollLeft = center.x - margin;
-    else if (center.x > right - margin)
-      this.wrap.scrollLeft = center.x + margin - width;
-    if (center.y < top + margin)
-      this.wrap.scrollTop = center.y - margin;
-    else if (center.y > bottom - margin)
-      this.wrap.scrollTop = center.y + margin - height;
-  };
-
-  // Clears the level from the DOM.
-  this.clear = function() {
-    this.wrap.parentNode.removeChild(this.wrap);
-  };
 }
+
+// Create table to display the level. Each element has a single table element.
+DOMDisplay.prototype.drawBackground = function() {
+  var table = createElement("table", "background");
+  table.style.width = this.level.width * scale + "px";
+  this.level.grid.forEach(function(row) {
+    var rowElement = table.appendChild(createElement("tr"));
+    rowElement.style.height = scale + "px";
+    row.forEach(function(type) {
+      rowElement.appendChild(createElement("td", type));
+    });
+  });
+};
+
+// Create DOM element for each actor.
+DOMDisplay.prototype.drawActors = function() {
+  var wrap = createElement("div");
+  this.level.actors.forEach(function(actor) {
+    var rect = wrap.appendChild(createElement("div",
+      "actor " + actor.type));
+    rect.style.width = actor.size.x * scale + "px";
+    rect.style.height = actor.size.y * scale + "px";
+    rect.style.left = actor.pos.x * scale + "px";
+    rect.style.top = actor.pos.y * scale + "px";
+  });
+  return wrap;
+};
+
+/*
+Redraws Actors by removing them all from the DOM and drawing them in
+new positions.
+*/
+DOMDisplay.prototype.drawFrame = function() {
+  if (this.actorLayer) {
+    this.wrap.removeChild(this.actorLayer);
+    this.actorLayer = this.wrap.appendChild(this.drawActors());
+    this.wrap.className = "game " + (this.level.status || "");
+    this.scrollPlayerIntoView();
+  }
+};
+
+DOMDisplay.prototype.scrollPlayerIntoView = function() {
+  var width = this.wrap.clientWidth;
+  var height = this.wrap.clientHeight;
+  var margin = width / 3;
+
+  // The viewport
+  var left = this.wrap.scrollLeft;
+  var right = left + width;
+  var top = this.wrap.scrollTop;
+  var bottom = top + height;
+
+  var player = this.level.player;
+  var center = player.pos.plus(player.size.times(0.5))
+    .times(scale);
+
+  if (center.x < left + margin)
+    this.wrap.scrollLeft = center.x - margin;
+  else if (center.x > right - margin)
+    this.wrap.scrollLeft = center.x + margin - width;
+  if (center.y < top + margin)
+    this.wrap.scrollTop = center.y - margin;
+  else if (center.y > bottom - margin)
+    this.wrap.scrollTop = center.y + margin - height;
+};
+
+// Clears the level from the DOM.
+DOMDisplay.prototype.clear = function() {
+  this.wrap.parentNode.removeChild(this.wrap);
+};
 
 /*
 Set the graphics scale. Defines the number of pixels that a single unit
