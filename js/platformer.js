@@ -200,7 +200,7 @@ var scale = 20;
 // Run script once browser is ready.
 var ready = function(f) {
   if (document.readyState === "complete") {
-      return f();
+    return f();
   }
   document.addEventListener("DOMContentLoaded", f, false);
 };
