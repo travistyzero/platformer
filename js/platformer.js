@@ -5,6 +5,14 @@ o - Coin
 | - Lava moves vertically
 v - Lava that only moves down
 */
+var actorChars = {
+  "@": Player,
+  "o": Coin,
+  "=": Lava,
+  "|": Lava,
+  "v": Lava
+};
+
 var simpleLevelPlan = [
   "                      ",
   "                      ",
