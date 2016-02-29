@@ -108,3 +108,16 @@ function createElement(name, className) {
   }
   return element;
 }
+
+/*
+A display is created by giving it a parent element to which it should append
+itself and a level object.
+*/
+function DOMDisplay(parent, level) {
+  this.wrap = parent.appendChild(createElement("div", "game"));
+  this.level = level;
+
+  this.wrap.appendChild(this.drawBackgroud());
+  this.actorLayer = null;
+  this.drawFrame();
+}
