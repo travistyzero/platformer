@@ -185,6 +185,11 @@ function DOMDisplay(parent, level) {
     else if (center.y > bottom - margin)
       this.wrap.scrollTop = center.y + margin - height;
   };
+
+  // Clears the level from the DOM.
+  this.clear = function() {
+    this.wrap.parentNode.removeChild(this.wrap);
+  };
 }
 
 /*
