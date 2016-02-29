@@ -121,3 +121,9 @@ function DOMDisplay(parent, level) {
   this.actorLayer = null;
   this.drawFrame();
 }
+
+/*
+Set the graphics scale. Defines the number of pixels that a single unit
+takes up on the screen
+*/
+var scale = 20;
