@@ -198,6 +198,16 @@ takes up on the screen
 */
 var scale = 20;
 
+// Run script once browser is ready.
+var ready = function(f) {
+  if (document.readyState === "complete") {
+      return f();
+  }
+  document.addEventListener("DOMContentLoaded", f, false);
+};
+
 // Create level and show game.
-var simpleLevel = new Level(simpleLevelPlan);
-var display = new DOMDisplay(document.body, simpleLevel);
+ready(function() {
+  var simpleLevel = new Level(simpleLevelPlan);
+  var display = new DOMDisplay(document.body, simpleLevel);
+});
