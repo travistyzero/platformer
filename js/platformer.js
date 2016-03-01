@@ -34,6 +34,9 @@ takes up on the screen
 */
 var scale = 20;
 
+// Define coin wobble motion
+var wobbleSpeed = 8, wobbleDist = 0.07;
+
 // Run script once browser is ready.
 var ready = function(f) {
   if (document.readyState === "complete") {
