@@ -77,6 +77,18 @@ Level.prototype.obstacleAt = function(pos, size) {
     }
   }
 };
+// Find actors that overlap the one given as an argument
+Level.prototype.actorAt = function(actor) {
+  for (var i = 0; i < this.actors.length; i++) {
+    var other = this.actors[i];
+    if (other != actor &&
+        actor.pos.x + actor.size.x > other.pos.x &&
+        actor.pos.x < other.pos.x + other.size.x &&
+        actor.pos.y + actor.size.y > other.pos.y &&
+        actor.pos.y < other.pos.y + other.size.y)
+      return other;
+  }
+};
 
 // Store position and size of an actor.
 function Vector(x, y) {
