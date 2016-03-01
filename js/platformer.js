@@ -37,6 +37,9 @@ var scale = 20;
 // Define coin wobble motion
 var wobbleSpeed = 8, wobbleDist = 0.07;
 
+// Define player horizontal speed.
+var playerXSpeed = 7;
+
 // Run script once browser is ready.
 var ready = function(f) {
   if (document.readyState === "complete") {
@@ -153,6 +156,19 @@ function Player(position) {
   this.velocity = new Vector(0, 0);
   this.type = "player";
 }
+Player.prototype.moveX = function(step, level, keys) {
+  this.speed.x = 0;
+  if (keys.left) this.speed.x -= playerXSpeed;
+  if (keys.right) this.speed.x += playerXSpeed;
+
+  var motion = new Vector(this.speed.x * step, 0);
+  var newPos = this.pos.plus(motion);
+  var obstacle = level.obstacleAt(newPos, this.size);
+  if (obstacle)
+    level.playerTouched(obstacle);
+  else
+    this.pos = newPos;
+};
 
 function Lava(pos, ch) {
   this.pos = pos;
