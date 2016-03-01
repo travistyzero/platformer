@@ -1,3 +1,6 @@
+// Maximum time step in seconds.
+var maxStep = 0.05;
+
 /*
 @ - Player start location
 o - Coin
