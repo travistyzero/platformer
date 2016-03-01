@@ -39,6 +39,9 @@ var wobbleSpeed = 8, wobbleDist = 0.07;
 
 // Define player horizontal speed.
 var playerXSpeed = 7;
+// Define player vertical jump parameters.
+var gravity = 30;
+var jumpSpeed = 17;
 
 // Run script once browser is ready.
 var ready = function(f) {
@@ -168,6 +171,21 @@ Player.prototype.moveX = function(step, level, keys) {
     level.playerTouched(obstacle);
   else
     this.pos = newPos;
+};
+Player.prototype.moveY = function(step, level, keys) {
+  this.speed.y += step * gravity;
+  var motion = new Vector(0, this.speed.y * step);
+  var newPos = this.pos.plus(motion);
+  var obstacle = level.obstacleAt(newPos, this.size);
+  if (obstacle) {
+    level.playerTouched(obstacle);
+    if (keys.up && this.speed.y > 0)
+      this.speed.y = -jumpSpeed;
+    else
+      this.speed.y = 0;
+  } else {
+    this.pos = newPos;
+  }
 };
 
 function Lava(pos, ch) {
