@@ -28,6 +28,26 @@ var simpleLevelPlan = [
   "                      "
 ];
 
+/*
+Set the graphics scale. Defines the number of pixels that a single unit
+takes up on the screen
+*/
+var scale = 20;
+
+// Run script once browser is ready.
+var ready = function(f) {
+  if (document.readyState === "complete") {
+    return f();
+  }
+  document.addEventListener("DOMContentLoaded", f, false);
+};
+
+// Create level and show game.
+ready(function() {
+  var simpleLevel = new Level(simpleLevelPlan);
+  var display = new DOMDisplay(document.body, simpleLevel);
+});
+
 function Level(plan) {
   this.width = plan[0].length;
   this.height = plan.length;
@@ -244,23 +264,3 @@ DOMDisplay.prototype.scrollPlayerIntoView = function() {
 DOMDisplay.prototype.clear = function() {
   this.wrap.parentNode.removeChild(this.wrap);
 };
-
-/*
-Set the graphics scale. Defines the number of pixels that a single unit
-takes up on the screen
-*/
-var scale = 20;
-
-// Run script once browser is ready.
-var ready = function(f) {
-  if (document.readyState === "complete") {
-    return f();
-  }
-  document.addEventListener("DOMContentLoaded", f, false);
-};
-
-// Create level and show game.
-ready(function() {
-  var simpleLevel = new Level(simpleLevelPlan);
-  var display = new DOMDisplay(document.body, simpleLevel);
-});
