@@ -92,6 +92,25 @@ Level.prototype.actorAt = function(actor) {
       return other;
   }
 };
+/*
+Animate actors over time period given by step argument. The keys argument
+contains information about the arrow keys the player has pressed.
+*/
+Level.prototype.animate = function(step, keys) {
+  if (this.status !== null)
+    this.finishDelay -= step;
+
+  while (step > 0) {
+    var thisStep = Math.min(step, maxStep);
+    // Ok to use function in a loop in this instance.
+    /* jshint -W083 */
+    this.actors.forEach(function(actor) {
+      actor.act(thisStep, this, keys);
+    }, this);
+    /* jshint +W083 */
+    step -= thisStep;
+  }
+};
 
 // Store position and size of an actor.
 function Vector(x, y) {
