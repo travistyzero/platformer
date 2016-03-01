@@ -140,6 +140,22 @@ Level.prototype.animate = function(step, keys) {
     step -= thisStep;
   }
 };
+Level.prototype.playerTouched = function(type, actor) {
+  if (type === "lava" && this.status === null) {
+    this.status = "lost";
+    this.finishDelay = 1;
+  } else if (type === "coin") {
+    this.actors = this.actors.filter(function(other) {
+      return other !== actor;
+    });
+    if (!this.actors.some(function(actor) {
+      return actor.type === "coin";
+    })) {
+      this.status = "won";
+      this.finishDelay = 1;
+    }
+  }
+};
 
 // Store position and size of an actor.
 function Vector(x, y) {
