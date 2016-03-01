@@ -187,6 +187,20 @@ Player.prototype.moveY = function(step, level, keys) {
     this.pos = newPos;
   }
 };
+Player.prototype.act = function(step, level, keys) {
+  this.moveX(step, level, keys);
+  this.moveY(step, level, keys);
+
+  var otherActor = level.actorAt(this);
+  if (otherActor)
+    level.playerTouched(otherActor.type, otherActor);
+
+  // Losing animation
+  if (level.status == "lost") {
+    this.pos.y += step;
+    this.size.y -= step;
+  }
+};
 
 function Lava(pos, ch) {
   this.pos = pos;
