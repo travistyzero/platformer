@@ -394,3 +394,18 @@ function runLevel(level, Display, andThen) {
     }
   });
 }
+
+// Plays all levels passed by argument "plans".
+function runGame(plans, Display) {
+  function startLevel(n) {
+    runLevel(new Level(plans[n]), Display, function(status) {
+      if (status == "lost")
+        startLevel(n);
+      else if (n < plans.length - 1)
+        startLevel(n + 1);
+      else
+        console.log("You win!");
+    });
+  }
+  startLevel(0);
+}
