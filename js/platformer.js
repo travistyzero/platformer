@@ -379,3 +379,18 @@ function runAnimation(frameFunc) {
   }
   requestAnimationFrame(frame);
 }
+
+// Plays a single level.
+function runLevel(level, Display, andThen) {
+  var display = new Display(document.body, level);
+  runAnimation(function(step) {
+    level.animate(step, arrows);
+    display.drawFrame(step);
+    if (level.isFinished()) {
+      display.clear();
+      if (andThen)
+        andThen(level.status);
+      return false;
+    }
+  });
+}
