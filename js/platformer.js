@@ -43,6 +43,9 @@ var playerXSpeed = 7;
 var gravity = 30;
 var jumpSpeed = 17;
 
+// Define game control keys.
+var arrowCodes = {37: "left", 38: "up", 39: "right"};
+
 // Run script once browser is ready.
 var ready = function(f) {
   if (document.readyState === "complete") {
@@ -345,3 +348,17 @@ DOMDisplay.prototype.scrollPlayerIntoView = function() {
 DOMDisplay.prototype.clear = function() {
   this.wrap.parentNode.removeChild(this.wrap);
 };
+
+function trackKeys(codes) {
+  var pressed = Object.create(null);
+  function handler(event) {
+    if (codes.hasOwnProperty(event.keyCode)) {
+      var down = event.type == "keydown";
+      pressed[codes[event.keyCode]] = down;
+      event.preventDefault();
+    }
+  }
+  addEventListener("keydown", handler);
+  addEventListener("keyup", handler);
+  return pressed;
+}
