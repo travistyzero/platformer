@@ -362,6 +362,7 @@ function trackKeys(codes) {
   addEventListener("keyup", handler);
   return pressed;
 }
+var arrows = trackKeys(arrowCodes);
 
 // Convenience function for running animation
 function runAnimation(frameFunc) {
