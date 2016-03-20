@@ -56,8 +56,8 @@ var ready = function(f) {
 
 // Create level and show game.
 ready(function() {
-  var simpleLevel = new Level(simpleLevelPlan);
-  var display = new DOMDisplay(document.body, simpleLevel);
+  // var simpleLevel = new Level(simpleLevelPlan);
+  runGame([simpleLevelPlan], DOMDisplay);
 });
 
 function Level(plan) {
@@ -172,10 +172,10 @@ Vector.prototype.times = function(factor) {
     return new Vector(this.x * factor, this.y * factor);
 };
 
-function Player(position) {
-  this.position = position.plus(new Vector(0, -0.5));
+function Player(pos) {
+  this.pos = pos.plus(new Vector(0, -0.5));
   this.size = new Vector(0.8, 1.5);
-  this.velocity = new Vector(0, 0);
+  this.speed= new Vector(0, 0);
   this.type = "player";
 }
 Player.prototype.moveX = function(step, level, keys) {
@@ -225,11 +225,11 @@ function Lava(pos, ch) {
   this.pos = pos;
   this.size = new Vector(1, 1);
   if (ch == "=") {
-    this.velocity = new Vector(2, 0);
+    this.speed = new Vector(2, 0);
   } else if (ch == "|") {
-    this.velocity = new Vector(0, 2);
+    this.speed = new Vector(0, 2);
   } else if (ch == "v") {
-    this.velocity = new Vector(0, 3);
+    this.speed = new Vector(0, 3);
     this.repeatPos = pos;
   }
   this.type = "lava";
